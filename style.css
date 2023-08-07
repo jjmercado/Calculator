@@ -1,0 +1,41 @@
+*
+{
+    border: 1px solid red;
+}
+
+h1  
+{
+    text-align: center;
+}
+
+p
+{
+    display: flex;
+    justify-content: right;
+    width: 32rem;
+    font-size: 3rem;
+    margin: 0;
+    height: 4rem;
+}
+
+div
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+button
+{
+    height: 8rem;
+    width: 8rem;
+    font-size: 2rem;
+}
+
+div.buttonContainer
+{
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 32rem;
+}
