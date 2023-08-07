@@ -1,6 +1,5 @@
 let buttonNumbers = ["C", "()", "%", "/", "7", "8", "9", "*", "4", "5", "6", "-", "1", "2", "3", "+", "+/-", "0", ",", "="];
 let didCalculation = false;
-let multipleOperants = false;
 let id = document.getElementById("output");
 
 
@@ -18,50 +17,56 @@ function createCalcButtons(buttonArray)
     });
 }
 
+function checkCalculation(button) 
+{
+    let operands = ["*", "/", "-", "+"];
+    let lastCharacter = document.getElementById("output").textContent[document.getElementById("output").textContent.length - 1];
+
+    console.log("last char:" + lastCharacter);
+
+    if (id.textContent === "0") 
+    {
+        id.textContent = "";    
+    }
+
+    if(button.value === "=") 
+    {
+        calculation(); 
+    } 
+    else if(button.value === "C")
+    {
+        clearOutput();
+    }
+    else 
+    {
+        if (!operands.includes(lastCharacter) || !operands.includes(button.value)) 
+        {
+            id.textContent += button.value;
+        }
+    }    
+}
+
 function addNumber(e) 
 {
     let button = e.target;
-    
-    if (didCalculation) 
+
+    if (id.textContent === "0" && button.value === "*") 
     {
-        if(button.value === "=") 
-        {
-            calculation(); 
-        } 
-        else if(button.value === "C")
-        {
-            clearOutput();
-        }
-        else 
-        {
-            id.textContent += button.value;
-            multipleOperants = false;   
-        }
-        didCalculation = false;   
+        return;
     }
     else
     {
-        if (id.textContent === "0") 
+        if (didCalculation) 
         {
-            id.textContent = "";    
+            checkCalculation(button);
+            didCalculation = false;   
         }
-
-        if(button.value === "=") 
-        {
-            calculation(); 
-        } 
-        else if(button.value === "C")
-        {
-            clearOutput();
+        else
+        {             
+            checkCalculation(button);
         }
-        else 
-        {
-            id.textContent += button.value;
-            multipleOperants = false;   
-        }
-          
+        console.log(id.textContent);
     }
-    console.log(id.textContent);
 }
 
 function clearOutput() 
