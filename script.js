@@ -1,5 +1,8 @@
-let buttonText = ["C", "()", "%", "/", "7", "8", "9", "*", "4", "5", "6", "-", "1", "2", "3", "+", "+/-", "0", ",", "="];
+let buttonNumbers = ["C", "()", "%", "/", "7", "8", "9", "*", "4", "5", "6", "-", "1", "2", "3", "+", "+/-", "0", ",", "="];
 let didCalculation = false;
+let multipleOperants = false;
+let id = document.getElementById("output");
+
 
 function createCalcButtons(buttonArray) 
 {
@@ -17,13 +20,23 @@ function createCalcButtons(buttonArray)
 
 function addNumber(e) 
 {
-    let id = document.getElementById("output");
     let button = e.target;
     
     if (didCalculation) 
     {
-        id.textContent = ""; 
-        id.textContent += button.value;
+        if(button.value === "=") 
+        {
+            calculation(); 
+        } 
+        else if(button.value === "C")
+        {
+            clearOutput();
+        }
+        else 
+        {
+            id.textContent += button.value;
+            multipleOperants = false;   
+        }
         didCalculation = false;   
     }
     else
@@ -32,16 +45,28 @@ function addNumber(e)
         {
             id.textContent = "";    
         }
-        
+
         if(button.value === "=") 
         {
             calculation(); 
         } 
+        else if(button.value === "C")
+        {
+            clearOutput();
+        }
         else 
         {
             id.textContent += button.value;
+            multipleOperants = false;   
         }
+          
     }
+    console.log(id.textContent);
+}
+
+function clearOutput() 
+{
+    document.getElementById("output").textContent = "0";    
 }
 
 function calculation()
@@ -52,7 +77,7 @@ function calculation()
     let op = ["+", "-", "/", "*"];
     let numb = 0;
 
-    if(text === "")
+    if(text === "0")
     {
       text = "0";
     }
@@ -94,7 +119,6 @@ function calculation()
         }
         else if(newText[i] === "*")
         {
-          console.log(newText);
           let first = +newText.splice(i - 1, 1);
           newText.splice(i - 1, 1);
           let second = +newText.splice(i - 1, 1);
@@ -124,4 +148,4 @@ function calculation()
     document.getElementById("output").textContent = numb.toString();
   }
 
-createCalcButtons(buttonText);
+createCalcButtons(buttonNumbers);
