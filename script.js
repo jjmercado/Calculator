@@ -3,6 +3,8 @@ let deleteButtons = ["AC", "C"];
 let didCalculation = false;
 let output = document.getElementById("output");
 
+window.addEventListener("keydown", addNumber);
+
 
 function createCalcButtons(buttonArray, deleteButtons) 
 {
@@ -25,7 +27,6 @@ function createCalcButtons(buttonArray, deleteButtons)
         button.value = element;
 
         button.addEventListener("click", addNumber);
-
         div[0].appendChild(button);
     });
 
@@ -38,9 +39,14 @@ function clearSingleValue()
     var newTextContent = output.textContent.substring(0, output.textContent.length - 1);
     
     output.textContent = newTextContent;
+
+    if (output.textContent === "") 
+    {
+        output.textContent = "0";
+    }
 }
 
-function checkCalculation(button) 
+function checkCalculation(button, key) 
 {
     let operands = ["*", "/", "-", "+"];
     let lastCharacter = document.getElementById("output").textContent[document.getElementById("output").textContent.length - 1];
@@ -50,18 +56,21 @@ function checkCalculation(button)
         output.textContent = "";    
     }
 
-    if(button.value === "=")   
+    if(button.value === "=" || key === "Enter")   
     {
         calculation(); 
     } 
-    else if(button.value === "C")
-    {
-        clearOutput();
-    }
     else 
-    {
-        if (!operands.includes(lastCharacter) || !operands.includes(button.value)) 
+    { 
+        if (!operands.includes(lastCharacter) && key !== undefined || !operands.includes(key) && key !== undefined)
         {
+            console.log("key: " + key);
+            output.textContent += key;
+        }
+        
+        if (!operands.includes(lastCharacter) && button.value !== undefined || !operands.includes(button.value) && button.value !== undefined) 
+        {
+            console.log("button: " + button.value);
             output.textContent += button.value;
         }
     }    
@@ -70,8 +79,10 @@ function checkCalculation(button)
 function addNumber(e) 
 {
     let button = e.target;
+    let key = e.key;
 
-    if (output.textContent === "0" && button.value === "*") 
+    if (output.textContent === "0" && button.value === "*" ||
+        output.textContent === "0" && key === "*") 
     {
         return;
     }
@@ -79,12 +90,12 @@ function addNumber(e)
     {
         if (didCalculation) 
         {
-            checkCalculation(button);
+            checkCalculation(button, key);
             didCalculation = false;   
         }
         else
         {             
-            checkCalculation(button);
+            checkCalculation(button, key);
         }
     }
 }
