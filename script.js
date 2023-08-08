@@ -3,9 +3,49 @@ let deleteButtons = ["AC", "C"];
 let operands = ["*", "/", "-", "+", "."];
 let didCalculation = false;
 let output = document.getElementById("output");
+let buttons = document.getElementsByClassName("numberButtons");
+let delButtons = document.getElementsByClassName("deleteButtons");
+
 
 window.addEventListener("keydown", addNumber);
 
+window.addEventListener("keydown", (e) =>
+{
+    buttons = Array.from(buttons);
+    delButtons = Array.from(delButtons);
+
+    buttons.forEach(element => 
+    {
+        if (element.value === e.key || element.value === "=" && e.key === "Enter") 
+        {
+            element.classList.add("keyDown");
+        }
+    });
+
+    delButtons.forEach(element =>
+    {
+        if (element.value === "AC" && e.key === "Backspace" || element.value === "C" && e.key === "Delete") 
+        {
+            element.classList.add("keyDownDelBut");
+        }
+    });
+})
+
+window.addEventListener("keyup", () =>
+{
+    buttons = Array.from(buttons);
+    delButtons = Array.from(delButtons);
+
+    buttons.forEach(element => 
+    {
+        element.classList.remove("keyDown");
+    });
+
+    delButtons.forEach(element =>
+        {
+            element.classList.remove("keyDownDelBut");
+        });
+})
 
 function createCalcButtons(buttonArray, deleteButtons) 
 {
@@ -19,15 +59,16 @@ function createCalcButtons(buttonArray, deleteButtons)
         
         div[0].appendChild(button);
     })
-    let delButtons = document.getElementsByClassName("deleteButtons");
     
     buttonArray.forEach(element => {
         let button = document.createElement("button");
         let div = document.getElementsByClassName("buttonContainer");
         button.textContent = element;
         button.value = element;
+        button.classList = "numberButtons";
 
         button.addEventListener("click", addNumber);
+
         div[0].appendChild(button);
     });
 
@@ -63,6 +104,10 @@ function checkCalculation(button, key)
     else if(button.value === "C" || key === "Backspace")
     {
         clearSingleValue();
+    }
+    else if(button.value === "AC" || key === "Delete")
+    {
+        clearOutput();
     }
     else 
     { 

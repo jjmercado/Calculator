@@ -84,3 +84,22 @@ button:hover
     width: 50%;
     font-size: 3rem;
 }
+
+.keyDown
+{
+    height: 20%;
+    width: 25%;
+    font-size: 3rem;
+    border-radius: 1rem;
+    border: 1px solid black;
+    background-color: blanchedalmond;
+}
+
+.keyDownDelBut
+{
+    width: 50%;
+    font-size: 2rem;
+    border-radius: 1rem;
+    border: 1px solid black;
+    background-color: blanchedalmond;
+}
