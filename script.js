@@ -1,7 +1,7 @@
 let buttonNumbers = ["7", "8", "9", "/", "4", "5", "6", "*", "1", "2", "3", "-", ".", "0", "=", "+"];
 let deleteButtons = ["AC", "C"];
 let didCalculation = false;
-let id = document.getElementById("output");
+let output = document.getElementById("output");
 
 
 function createCalcButtons(buttonArray, deleteButtons) 
@@ -13,11 +13,11 @@ function createCalcButtons(buttonArray, deleteButtons)
         button.value = element;
 
         button.className = "deleteButtons";
-
-        button.addEventListener("click", clearOutput);
+        
         div[0].appendChild(button);
     })
-
+    let delButtons = document.getElementsByClassName("deleteButtons");
+    
     buttonArray.forEach(element => {
         let button = document.createElement("button");
         let div = document.getElementsByClassName("buttonContainer");
@@ -29,7 +29,15 @@ function createCalcButtons(buttonArray, deleteButtons)
         div[0].appendChild(button);
     });
 
+    delButtons[0].addEventListener("click", clearOutput);
+    delButtons[1].addEventListener("click", clearSingleValue);
+}
 
+function clearSingleValue() 
+{  
+    var newTextContent = output.textContent.substring(0, output.textContent.length - 1);
+    
+    output.textContent = newTextContent;
 }
 
 function checkCalculation(button) 
@@ -37,11 +45,9 @@ function checkCalculation(button)
     let operands = ["*", "/", "-", "+"];
     let lastCharacter = document.getElementById("output").textContent[document.getElementById("output").textContent.length - 1];
 
-    console.log("last char:" + lastCharacter);
-
-    if (id.textContent === "0") 
+    if (output.textContent === "0") 
     {
-        id.textContent = "";    
+        output.textContent = "";    
     }
 
     if(button.value === "=")   
@@ -56,7 +62,7 @@ function checkCalculation(button)
     {
         if (!operands.includes(lastCharacter) || !operands.includes(button.value)) 
         {
-            id.textContent += button.value;
+            output.textContent += button.value;
         }
     }    
 }
@@ -65,7 +71,7 @@ function addNumber(e)
 {
     let button = e.target;
 
-    if (id.textContent === "0" && button.value === "*") 
+    if (output.textContent === "0" && button.value === "*") 
     {
         return;
     }
@@ -80,7 +86,6 @@ function addNumber(e)
         {             
             checkCalculation(button);
         }
-        console.log(id.textContent);
     }
 }
 
