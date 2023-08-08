@@ -8,6 +8,7 @@ body
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    background-color: ghostwhite;
 }
 
 h1  
@@ -15,14 +16,19 @@ h1
     text-align: center;
 }
 
-p
+#output
 {
     display: flex;
     justify-content: right;
-    width: 32rem;
+    align-items: center;
+    width: 100%;
+    height: 6rem;
     font-size: 3rem;
     margin: 0;
-    height: 4rem;
+    overflow: hidden;
+    border: 1px solid black;
+    background-color: white;
+    border-radius: 1rem;
 }
 
 div
@@ -31,25 +37,50 @@ div
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 4rem;
+    background-color: rgb(228, 250, 228);
+    box-shadow: 1px 1px 10px black;
+    border-radius: 1rem;
 }
 
 button
 {
-    height: 8rem;
-    width: 8rem;
+    height: 20%;
+    width: 25%;
     font-size: 2rem;
+    border-radius: 1rem;
+    border: 1px solid black;
+    background-color: palegreen;
 }
 
-div.buttonContainer
+button:hover
+{
+    height: 20%;
+    width: 25%;
+    font-size: 3rem;
+    border-radius: 1rem;
+    border: 1px solid black;
+    background-color: blanchedalmond;
+}
+
+.buttonContainer
 {
     flex-direction: row;
     flex-wrap: wrap;
-    width: 32rem;
+    width: 36rem;
+    height: 44rem;
+    padding: 0;
+    box-shadow: none;
 }
 
 .deleteButtons
 {
-    height: 8rem;
-    width: 16rem;
+    width: 50%;
     font-size: 2rem;
+}
+
+.deleteButtons:hover
+{
+    width: 50%;
+    font-size: 3rem;
 }
