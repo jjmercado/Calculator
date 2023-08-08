@@ -1,5 +1,6 @@
 let buttonNumbers = ["7", "8", "9", "/", "4", "5", "6", "*", "1", "2", "3", "-", ".", "0", "=", "+"];
 let deleteButtons = ["AC", "C"];
+let operands = ["*", "/", "-", "+", "."];
 let didCalculation = false;
 let output = document.getElementById("output");
 
@@ -48,10 +49,9 @@ function clearSingleValue()
 
 function checkCalculation(button, key) 
 {
-    let operands = ["*", "/", "-", "+"];
     let lastCharacter = document.getElementById("output").textContent[document.getElementById("output").textContent.length - 1];
 
-    if (output.textContent === "0") 
+    if (output.textContent === "0" && buttonNumbers.includes(key) || output.textContent === "0" && buttonNumbers.includes(button.value)) 
     {
         output.textContent = "";    
     }
@@ -60,18 +60,25 @@ function checkCalculation(button, key)
     {
         calculation(); 
     } 
+    else if(button.value === "C" || key === "Backspace")
+    {
+        clearSingleValue();
+    }
     else 
     { 
-        if (!operands.includes(lastCharacter) && key !== undefined || !operands.includes(key) && key !== undefined)
+        if (buttonNumbers.includes(key)) 
         {
-            console.log("key: " + key);
-            output.textContent += key;
+            if (!operands.includes(lastCharacter) && key !== undefined || !operands.includes(key) && key !== undefined)
+            {
+                output.textContent += key;
+            }
         }
-        
-        if (!operands.includes(lastCharacter) && button.value !== undefined || !operands.includes(button.value) && button.value !== undefined) 
+        else
         {
-            console.log("button: " + button.value);
-            output.textContent += button.value;
+            if (!operands.includes(lastCharacter) && button.value !== undefined || !operands.includes(button.value) && button.value !== undefined) 
+            {
+                output.textContent += button.value;
+            }
         }
     }    
 }
@@ -81,8 +88,8 @@ function addNumber(e)
     let button = e.target;
     let key = e.key;
 
-    if (output.textContent === "0" && button.value === "*" ||
-        output.textContent === "0" && key === "*") 
+    if (output.textContent === "0" && operands.includes(button.value) ||
+        output.textContent === "0" && operands.includes(key)) 
     {
         return;
     }
@@ -181,7 +188,7 @@ function calculation()
     console.log(newText);
     newText = [];
     tempText = "";
-    document.getElementById("output").textContent = numb.toString();
+    output.textContent = numb.toString();
   }
 
 createCalcButtons(buttonNumbers, deleteButtons);
