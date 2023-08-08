@@ -1,10 +1,23 @@
-let buttonNumbers = ["C", "()", "%", "/", "7", "8", "9", "*", "4", "5", "6", "-", "1", "2", "3", "+", "+/-", "0", ",", "="];
+let buttonNumbers = ["7", "8", "9", "/", "4", "5", "6", "*", "1", "2", "3", "-", ".", "0", "=", "+"];
+let deleteButtons = ["AC", "C"];
 let didCalculation = false;
 let id = document.getElementById("output");
 
 
-function createCalcButtons(buttonArray) 
+function createCalcButtons(buttonArray, deleteButtons) 
 {
+    deleteButtons.forEach(element => {
+        let button = document.createElement("button");
+        let div = document.getElementsByClassName("buttonContainer");
+        button.textContent = element;
+        button.value = element;
+
+        button.className = "deleteButtons";
+
+        button.addEventListener("click", clearOutput);
+        div[0].appendChild(button);
+    })
+
     buttonArray.forEach(element => {
         let button = document.createElement("button");
         let div = document.getElementsByClassName("buttonContainer");
@@ -15,6 +28,8 @@ function createCalcButtons(buttonArray)
 
         div[0].appendChild(button);
     });
+
+
 }
 
 function checkCalculation(button) 
@@ -29,7 +44,7 @@ function checkCalculation(button)
         id.textContent = "";    
     }
 
-    if(button.value === "=") 
+    if(button.value === "=")   
     {
         calculation(); 
     } 
@@ -153,4 +168,4 @@ function calculation()
     document.getElementById("output").textContent = numb.toString();
   }
 
-createCalcButtons(buttonNumbers);
+createCalcButtons(buttonNumbers, deleteButtons);

@@ -3,6 +3,10 @@
     border: 1px solid red;
 }
 
+body
+{
+}
+
 h1  
 {
     text-align: center;
@@ -38,4 +42,11 @@ div.buttonContainer
     flex-direction: row;
     flex-wrap: wrap;
     width: 32rem;
+}
+
+.deleteButtons
+{
+    height: 8rem;
+    width: 16rem;
+    font-size: 2rem;
 }
